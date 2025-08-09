@@ -1,0 +1,72 @@
+translate:
+  description: >
+    You are an expert at converting natural language into strict filtering criteria.
+    Based on the user's persona description (e.g., "I'm looking for an outgoing middle-aged woman with two children"),
+    translate it into database-ready filters.
+    The expected format is key-value pairs like:
+    - age: 30~50
+    - gender: female
+    - family_member: >2
+    - extraversion: >3
+    - openness: >3
+
+  expected_output: >
+    A dictionary of filtering criteria that can be used for database queries.
+  output_type: dict
+
+query:
+  description: >
+    You are a database search expert. Based on the provided filtering criteria,
+    retrieve all matching user data from the 'survey_answers' table in MySQL.
+    Each record includes answers to 50 personality questions, 5 trait scores,
+    and demographic info such as age, salary, gender, and number of family members.
+
+  expected_output: >
+    A list of raw user data entries (e.g., 50 users), each with 59 fields.
+  output_type: list[dict]
+
+construct:
+  description: >
+    You are a persona modeling expert. Based on the N user records retrieved from the database,
+    calculate the average value for each field (50 question answers, 5 trait scores,
+    age, gender ratio, salary, family size, etc.).
+    Construct a "representative persona" using these averaged values.
+    You don’t need to output raw data, just return the 59-field profile.
+
+  expected_output: >
+    A representative persona profile with 59 fields, to be used for simulated questionnaire answering.
+  output_type: dict
+
+simulate:
+  description: >
+    You are a persona simulation agent. Based on the representative profile (59 fields),
+    answer a Big Five questionnaire consisting of 50 items.
+    The questionnaire metadata is provided in inputs['questionnaire'], including item ID, text,
+    trait association, and whether the item is reverse-scored.
+    Answer each question on a 1–5 scale. Ensure your responses realistically reflect the persona.
+
+  expected_output: >
+    A list of 50 answers, each an integer from 1 to 5, representing the completed questionnaire.
+  output_type: list[int]
+
+validate:
+  description: >
+    You are a personality evaluation expert. Compare two things:
+    1. The simulated agent's 50-question responses.
+    2. The average answers of the N users from the database.
+    You will also receive questionnaire metadata (trait and reverse key) to help you score accurately.
+    Calculate trait-level similarities and explain how closely the simulated persona aligns with the real sample.
+
+  expected_output: >
+    Trait-by-trait similarity scores (e.g., 85%, 73%) along with a summary report of match quality.
+  output_type: dict
+
+send_email:
+  description: >
+    You are a smart assistant. Send the results of the validation task and the summary report to a specified email.
+    Use markdown formatting to organize the message, including a comparison table and trait insights.
+    Your tone should be professional yet friendly.
+
+  expected_output: >
+    A confirmation of whether the email was sent successfully.
+  output_type: string

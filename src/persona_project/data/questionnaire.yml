@@ -1,0 +1,263 @@
+questions:
+- id: 1
+  code: E1
+  text: I am the life of the party.
+  trait: extraversion
+  reverse: false
+- id: 2
+  code: E2
+  text: I don't talk a lot.
+  trait: extraversion
+  reverse: true
+- id: 3
+  code: E3
+  text: I feel comfortable around people.
+  trait: extraversion
+  reverse: false
+- id: 4
+  code: E4
+  text: I keep in the background.
+  trait: extraversion
+  reverse: true
+- id: 5
+  code: E5
+  text: I start conversations.
+  trait: extraversion
+  reverse: false
+- id: 6
+  code: E6
+  text: I have little to say.
+  trait: extraversion
+  reverse: true
+- id: 7
+  code: E7
+  text: I talk to a lot of different people at parties.
+  trait: extraversion
+  reverse: false
+- id: 8
+  code: E8
+  text: I don't like to draw attention to myself.
+  trait: extraversion
+  reverse: true
+- id: 9
+  code: E9
+  text: I don't mind being the center of attention.
+  trait: extraversion
+  reverse: false
+- id: 10
+  code: E10
+  text: I am quiet around strangers.
+  trait: extraversion
+  reverse: true
+- id: 11
+  code: N1
+  text: I get stressed out easily.
+  trait: neuroticism
+  reverse: false
+- id: 12
+  code: N2
+  text: I am relaxed most of the time.
+  trait: neuroticism
+  reverse: true
+- id: 13
+  code: N3
+  text: I worry about things.
+  trait: neuroticism
+  reverse: false
+- id: 14
+  code: N4
+  text: I seldom feel blue.
+  trait: neuroticism
+  reverse: true
+- id: 15
+  code: N5
+  text: I am easily disturbed.
+  trait: neuroticism
+  reverse: false
+- id: 16
+  code: N6
+  text: I get upset easily.
+  trait: neuroticism
+  reverse: false
+- id: 17
+  code: N7
+  text: I change my mood a lot.
+  trait: neuroticism
+  reverse: false
+- id: 18
+  code: N8
+  text: I have frequent mood swings.
+  trait: neuroticism
+  reverse: false
+- id: 19
+  code: N9
+  text: I get irritated easily.
+  trait: neuroticism
+  reverse: false
+- id: 20
+  code: N10
+  text: I often feel blue.
+  trait: neuroticism
+  reverse: false
+- id: 21
+  code: A1
+  text: I feel little concern for others.
+  trait: agreeableness
+  reverse: true
+- id: 22
+  code: A2
+  text: I am interested in people.
+  trait: agreeableness
+  reverse: false
+- id: 23
+  code: A3
+  text: I insult people.
+  trait: agreeableness
+  reverse: true
+- id: 24
+  code: A4
+  text: I sympathize with others' feelings.
+  trait: agreeableness
+  reverse: false
+- id: 25
+  code: A5
+  text: I am not interested in other people's problems.
+  trait: agreeableness
+  reverse: true
+- id: 26
+  code: A6
+  text: I have a soft heart.
+  trait: agreeableness
+  reverse: false
+- id: 27
+  code: A7
+  text: I am not really interested in others.
+  trait: agreeableness
+  reverse: true
+- id: 28
+  code: A8
+  text: I take time out for others.
+  trait: agreeableness
+  reverse: false
+- id: 29
+  code: A9
+  text: I feel others' emotions.
+  trait: agreeableness
+  reverse: false
+- id: 30
+  code: A10
+  text: I make people feel at ease.
+  trait: agreeableness
+  reverse: false
+- id: 31
+  code: C1
+  text: I am always prepared.
+  trait: conscientiousness
+  reverse: false
+- id: 32
+  code: C2
+  text: I leave my belongings around.
+  trait: conscientiousness
+  reverse: true
+- id: 33
+  code: C3
+  text: I pay attention to details.
+  trait: conscientiousness
+  reverse: false
+- id: 34
+  code: C4
+  text: I make a mess of things.
+  trait: conscientiousness
+  reverse: true
+- id: 35
+  code: C5
+  text: I get chores done right away.
+  trait: conscientiousness
+  reverse: false
+- id: 36
+  code: C6
+  text: I often forget to put things back in their proper place.
+  trait: conscientiousness
+  reverse: true
+- id: 37
+  code: C7
+  text: I like order.
+  trait: conscientiousness
+  reverse: false
+- id: 38
+  code: C8
+  text: I shirk my duties.
+  trait: conscientiousness
+  reverse: true
+- id: 39
+  code: C9
+  text: I follow a schedule.
+  trait: conscientiousness
+  reverse: false
+- id: 40
+  code: C10
+  text: I am exacting in my work.
+  trait: conscientiousness
+  reverse: false
+- id: 41
+  code: O1
+  text: I have a rich vocabulary.
+  trait: openness
+  reverse: false
+- id: 42
+  code: O2
+  text: I have difficulty understanding abstract ideas.
+  trait: openness
+  reverse: true
+- id: 43
+  code: O3
+  text: I have a vivid imagination.
+  trait: openness
+  reverse: false
+- id: 44
+  code: O4
+  text: I am not interested in abstract ideas.
+  trait: openness
+  reverse: true
+- id: 45
+  code: O5
+  text: I have excellent ideas.
+  trait: openness
+  reverse: false
+- id: 46
+  code: O6
+  text: I do not have a good imagination.
+  trait: openness
+  reverse: true
+- id: 47
+  code: O7
+  text: I am quick to understand things.
+  trait: openness
+  reverse: false
+- id: 48
+  code: O8
+  text: I use difficult words.
+  trait: openness
+  reverse: false
+- id: 49
+  code: O9
+  text: I spend time reflecting on things.
+  trait: openness
+  reverse: false
+- id: 50
+  code: O10
+  text: I am full of ideas.
+  trait: openness
+  reverse: false
+options:
+  1: Strongly disagree
+  2: Disagree
+  3: Neutral
+  4: Agree
+  5: Strongly agree
+traits:
+- extraversion
+- agreeableness
+- conscientiousness
+- neuroticism
+- openness
