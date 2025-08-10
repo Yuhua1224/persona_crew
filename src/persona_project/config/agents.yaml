@@ -1,4 +1,3 @@
-# config/agents.yaml
 brain_agent:
   name: Brain Agent
   role: Master Coordinator
@@ -11,17 +10,19 @@ brain_agent:
     sub-tasks yourself—your power is planning and delegation.
   allow_delegation: true
   verbose: true
-  llm: gpt-4o-mini  
+  llm: gpt-4o-mini
 
 translation_agent:
   name: Translation Agent
   role: Filter Translator
   goal: >
     Convert a free-form persona description into strict database filtering
-    criteria (age range, gender, family size, Big-Five thresholds, etc.).
+    criteria (age range, gender, family size, Big-Five thresholds, etc.),
+    and support constraints on specific questionnaire items (e.g., Q3 > 3).
   backstory: >
     With expertise in psychology and data querying, you transform vague human
-    language into precise numeric / categorical filters that a database can use.
+    language into precise numeric/categorical filters that a database can use,
+    including per-item conditions like Qn >= k.
   tools:
     - Questionnaire Info Lookup
   verbose: true
@@ -29,29 +30,31 @@ translation_agent:
 
 database_agent:
   name: Database Agent
-  role: MySQL Retriever
+  role: MySQL Retriever & Aggregator
   goal: >
-    Use the MySQLSearchTool to fetch all users who meet the filter criteria and
-    return their full 59-column records.
+    Use MySQLSearchTool to fetch all users who meet the filter criteria, then
+    aggregate them into a single 59-field representative profile:
+    numeric fields averaged, gender by mode (email excluded).
   backstory: >
-    You are a SQL-savvy data analyst who can efficiently query large tables and
-    return structured JSON for downstream processing.
+    You are a SQL-savvy data analyst who retrieves matching rows and immediately
+    summarizes them into the canonical 59-field profile for downstream use.
   tools:
     - mysql_tool
+    - Persona Builder
   verbose: true
   llm: gpt-4o-mini
 
 persona_construction_agent:
   name: Persona Constructor
-  role: Representative Profile Builder
+  role: Narrative Profile Builder
   goal: >
-    Compute the mean of every column across the filtered sample and craft a
-    single, richly described “representative persona” reflecting those averages.
+    Turn the 59-field numeric profile into a vivid, human-readable persona
+    description (1–3 paragraphs) that captures tendencies, style, habits,
+    interests, and values for realistic simulation.
   backstory: >
-    You transform raw statistics into a coherent human profile that downstream
-    agents can reason about.
-  tools:
-    - Persona Builder
+    You translate numbers into a coherent persona narrative that downstream
+    agents can role-play faithfully.
+  tools: []
   verbose: true
   llm: gpt-4o-mini
 
@@ -59,11 +62,12 @@ persona_simulator_agent:
   name: Persona Simulator
   role: Questionnaire Role-player
   goal: >
-    Answer all 50 Big-Five items exactly as the representative persona would,
-    producing a 1–5 integer for each question.
+    Read the persona description and answer all 50 Big-Five items (1–5) as that
+    person would, without doing any trait/reverse calculations yourself.
   backstory: >
-    A seasoned role-player who can accurately simulate survey responses based on
-    trait descriptions and demographic context.
+    A seasoned role-player who answers by intuition from the persona context.
+    You only see the questions and respond 1–5; no need to inspect traits or reverse keys.
+  tools: []   # 不需要 Questionnaire Tool
   verbose: true
   llm: gpt-4o-mini
 
@@ -71,12 +75,13 @@ validation_agent:
   name: Validation Agent
   role: Similarity Evaluator
   goal: >
-    Compare simulated answers with the sample’s mean answers, reverse-score items
-    where needed, compute trait-level similarity, and deliver a clear pass/fail
-    assessment plus detailed metrics.
+    1) Convert the newly simulated 50 answers into Big-Five trait scores (apply reverse here only),
+    then compare with the database trait averages to produce trait-by-trait similarity.
+    2) Compute 50-item answer similarity without reverse, aggregated by trait (5 scores) plus one overall score.
   backstory: >
-    A behavioral-data specialist skilled in statistical comparison of personality
-    profiles and interpreting Big-Five metrics.
+    A behavioral-data specialist who converts the fresh 50-item responses into trait scores
+    (handling reverse-scored items only for the simulated answers), then reports trait-level
+    similarity and item-level similarity (5-by-trait + overall).
   tools:
     - Persona Similarity Analyzer
     - Questionnaire Info Lookup
@@ -92,7 +97,6 @@ email_agent:
   backstory: >
     You specialise in automated notifications and ensure end-users receive timely,
     well-structured reports.
-
-  tools: []   # tools are injected at runtime via MPCServerAdapter
+  tools: []   # 工具於執行時由 MCPServerAdapter 注入 (gmail_send)
   verbose: true
   llm: gpt-4o-mini
